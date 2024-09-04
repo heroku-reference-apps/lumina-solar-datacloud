@@ -132,5 +132,23 @@ export default fp(async (fastify) => {
       );
       return rows[0];
     },
+    createNotification: async ({
+      systemId,
+      totalProducedEnergy,
+      totalConsumedEnergy,
+      remainingEnergy,
+    }) => {
+      const { rows } = await client.query(
+        'INSERT INTO notifications (system_id, total_produced_energy, total_consumed_energy, remaining_energy, datetime) VALUES ($1, $2, $3, $4, NOW()) RETURNING id, system_id, total_produced_energy, total_consumed_energy, remaining_energy, datetime',
+        [systemId, totalProducedEnergy, totalConsumedEnergy, remainingEnergy]
+      );
+      return rows[0];
+    },
+    getNotifications: async () => {
+      const { rows } = await client.query(
+        'SELECT * FROM notifications ORDER BY datetime DESC LIMIT 10'
+      );
+      return rows;
+    },
   });
 });

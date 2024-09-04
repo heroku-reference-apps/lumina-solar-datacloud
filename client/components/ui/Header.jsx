@@ -4,6 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconSun } from '@tabler/icons-react';
 import { Login } from '@/components/ui/Login.jsx';
 import { Profile } from '@/components/ui/Profile.jsx';
+import { Notifications } from '@/components/ui/Notifications.jsx';
 import { Cart } from '@/components/ui/Cart.jsx';
 import classes from './Header.module.css';
 import { useRouteContext } from '/:core.jsx';
@@ -44,6 +45,7 @@ export function Header() {
         </Group>
 
         <Group className={classes.links} visibleFrom="sm">
+          {state.user && <Notifications />}
           <Cart />
           {state.user ? <Profile /> : <Login />}
         </Group>

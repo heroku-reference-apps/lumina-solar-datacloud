@@ -49,3 +49,14 @@ CREATE TABLE IF NOT EXISTS products (
     image_url TEXT NOT NULL,
     price DECIMAL(10, 2) NOT NULL
 );
+
+-- Create the 'notifications' table
+CREATE TABLE IF NOT EXISTS notifications (
+    id TEXT PRIMARY KEY DEFAULT uuid_generate_v4(),
+    system_id TEXT NOT NULL,
+    total_produced_energy DECIMAL(10, 2) NOT NULL,
+    total_consumed_energy DECIMAL(10, 2) NOT NULL,
+    remaining_energy DECIMAL(10, 2) NOT NULL,
+    datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    FOREIGN KEY (system_id) REFERENCES systems(id) ON DELETE CASCADE
+);

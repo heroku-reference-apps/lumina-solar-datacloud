@@ -25,6 +25,7 @@ export function state() {
     products: [],
     product: null,
     cart: [],
+    notifications: [],
   };
 }
 
@@ -117,5 +118,11 @@ export const actions = {
       }
       return newCart;
     }, []);
+  },
+  async getNotifications(state) {
+    const response = await fetch('/api/notifications');
+    if (response.ok) {
+      state.notifications = await response.json();
+    }
   },
 };
